@@ -22,12 +22,10 @@ and what you should write is the sayHi function that makes the code above work,
 
 // 1. Write a function called first that returns the first item of the array using a callback function
 
-  const first = (names, callback) => {
-      return callback(names[0]);
+  var first = (names, cb) => {
+      return cb(names[0]);
     }
-  
-
-  
+ 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 first(names, function(firstName){
   console.log('The first name in names is ' + firstName);
@@ -73,8 +71,13 @@ multiply(4, 3, function(answer){
   //Code Here 
 
   const contains = (arr, name, callback) =>{
-      return callback(if(arr.indexOf(name) >= 0)
-      });
+      if (arr.indexOf(name) >= 0){
+        return callback(true);
+      }
+      else{ 
+        return callback(false); 
+      };
+    }
 
 
 
@@ -92,8 +95,10 @@ contains(names, 'Colt', function(result){
 // 5. Write a function called uniq that takes the names array and removes all duplicates.
 // Invoke the callback with the modified array as an argument.
 
-  //Code Here
-
+  const uniq = (names, cb) => {
+    
+    cb(names.filter((val, i, arr) => names.indexOf(val) == i));
+  }
 
 
 uniq(names, function(uniqArr){
@@ -103,7 +108,9 @@ uniq(names, function(uniqArr){
 
 // 6. Write a function called each that takes in an array of names. For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
 
-    //Code Here 
+    const each = (names, cb) =>{
+      return names.map((val, i, arr) => cb(val, i));
+    }
 
 
 
@@ -116,7 +123,13 @@ each(names, function(item, indice){
 // 7. Write a function called getUserById that looks at the array of user objects (users) and searches for a user by ID.
 // When the correct user object is found, invoke the callback with the user object as an argument.
 
-// Code here
+function getUserById(users, userID, cb) {
+  users.forEach(function(item) {
+    if (item.id === userID) {
+      cb(item);
+    }
+  });
+}
 
 
 
